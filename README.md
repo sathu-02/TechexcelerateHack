@@ -51,7 +51,7 @@ Ensure you have the following installed:
 ### Steps
 
 ```sh
-git clone https://github.com/yourusername/anomaly-detection-videomae.git
+git clone https://github.com/sathu-02/TechexcelerateHack.git
 cd anomaly-detection-videomae
 pip install -r requirements.txt
 ```
