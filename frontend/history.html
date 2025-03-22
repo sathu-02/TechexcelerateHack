@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Uploader</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <title>Home</title>
+        <style>
+            .content-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: calc(100vh - 80px);
+                /* Subtracting nav height */
+            }
+
+            .container {
+                width: 500px;
+                padding: 30px;
+                background-color: #1f242d;
+                color: #333;
+                border-radius: 10px;
+                /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+                text-align: center;
+                margin: auto;
+            }
+
+            .container h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #444;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            input[type="file"] {
+                padding: 10px;
+                border: 2px dashed #007bff;
+                background-color: #f9f9f9;
+                color: #555;
+                font-size: 14px;
+                border-radius: 5px;
+                text-align: center;
+                transition: border-color 0.3s ease;
+            }
+
+            input[type="file"]:hover {
+                border-color: #0056b3;
+            }
+
+            button {
+                padding: 12px 18px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 25px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+
+            button:active {
+                background-color: #004080;
+            }
+
+            .file-path {
+                margin-top: 15px;
+                font-size: 14px;
+                color: #555;
+            }
+        </style>
+    </head>
+
+    <body>
+
+
+        <!-- {{!-- {{>navbar}} --}} -->
+        <header class="header">
+
+            <a href="#" class="logo">Anomaly Detector</a>
+            <i class='bx bx-menu' id="menu-icon"></i>
+
+            <nav class="navbar">
+
+                <a href="/#">Log out</a>
+                <a href="/history">History</a>
+
+            </nav>
+        </header>
+
+        <div>
+
+        </div>
+        
+        <script src="../jq/jquery.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+    </body>
+
+    </html>
+    
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Sign up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #23242a;
+        }
+
+        .box {
+            position: relative;
+            width: 380px;
+            height: 420px;
+            background: #1c1c1c;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .box::before,
+        .box::after,
+        .borderLine::before,
+        .borderLine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 420px;
+
+            z-index: 1;
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+        }
+
+        .box::after {
+            animation-delay: -3s;
+        }
+
+        .borderLine::before {
+            animation-delay: -1.5s;
+        }
+
+        .borderLine::after {
+            animation-delay: -4.5s;
+        }
+
+
+
+        .box form {
+            position: absolute;
+            inset: 4px;
+            background: #222;
+            padding: 50px 40px;
+            border-radius: 8px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box form h2 {
+            color: #fff;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .box form .inputBox {
+            position: relative;
+            width: 300px;
+            margin-top: 35px;
+        }
+
+        .box form .inputBox input {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            outline: none;
+            border: none;
+            box-shadow: none;
+            color: #23242a;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            z-index: 10;
+        }
+
+        .box form .inputBox span {
+            position: absolute;
+            left: 0;
+            padding: 20px 0px 10px;
+            pointer-events: none;
+            color: #8f8f8f;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+        }
+
+        .box form .inputBox input:valid~span,
+        .box form .inputBox input:focus~span {
+            color: #fff;
+            font-size: 0.75em;
+            transform: translateY(-34px);
+        }
+
+        .box form .inputBox i {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .box form .inputBox input:valid~i,
+        .box form .inputBox input:focus~i {
+            height: 44px;
+        }
+
+        .box form .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .box form .links a {
+            font-size: 0.75em;
+            color: #8f8f8f;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .box form .links a:hover,
+        .box form .links a:nth-child(2) {
+            color: #fff;
+        }
+
+        .box form button[type="submit"] {
+            border: none;
+            outline: none;
+            padding: 9px 25px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 4px;
+            font-weight: 600;
+            width: 100px;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+    
+    <script src="../jq/jquery.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.js" type="text/javascript"></script><script>
+        function validateUsername() {
+            var username = document.getElementById("username").value;
+            var errorMessageContainer = document.getElementById("username-error-message");
+            errorMessageContainer.innerHTML = "";//Clear previous messages
+            if (username.length < 8) {
+                displayErrorMessage2("Username must be at least 8 characters long.", "username");
+                return false;
+            }
+            return true;
+        }
+
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var errorMessageContainer = document.getElementById("password-error-message");
+            errorMessageContainer.innerHTML = "";//Clear previous messages
+            if (!/[A-Z]/.test(password)) {
+                displayErrorMessage("Password must contain at least one uppercase letter.");
+                return false;
+            }
+
+            // Check for at least one numeric digit
+            if (!/\d/.test(password)) {
+                displayErrorMessage("Password must contain at least one numeric digit.");
+                return false;
+            }
+
+            // Check for at least one special character
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                displayErrorMessage("Password must contain at least one special character.");
+                return false;
+            }
+
+            // Check for a minimum length of 8 characters
+            if (password.length < 8) {
+                displayErrorMessage("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            return true;
+        }
+
+
+        function displayErrorMessage(message) {
+            var errorMessageContainer = document.getElementById("password-error-message");
+            errorMessageContainer.innerHTML = message;
+
+        }
+
+        function displayErrorMessage2(message) {
+
+            var errorMessageContainer2 = document.getElementById("username-error-message");
+            errorMessageContainer2.innerHTML = message;
+        }
+
+    </script>
+</head>
+
+<body>
+
+
+    <!-- {{!-- {{>navbar}} --}} -->
+    <header class="header">
+
+        <a href="#" class="logo">Anomaly Detector</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+
+        <nav class="navbar">
+            <a href="home.html">Home</a>
+            <a href="/login">Log in</a>
+            <a href="/signup" class="active">Sign up</a>
+        </nav>
+    </header>
+
+
+    <div class="box">
+        <span class="borderLine"></span>
+        <form action="/signup" method="post" onsubmit="return validatePassword() && validateUsername()">
+            <h2>SignUp</h2>
+            <div class="field">
+                <div class="inputBox">
+                    <input type="text" id="username" name="username" required autocomplete="off">
+                    <span>Username</span>
+                    <i></i>
+                </div>
+                <!-- signup.hbs -->
+<!-- 
+                {{#if error}}
+                <p style="color: {{color}};">{{error}}</p>
+                {{/if}} -->
+
+                <!-- Your existing signup form goes here -->
+                <div id="username-error-message" class="error-message"></div>
+            </div>
+            <div class="field">
+                <div class="inputBox">
+                    <input type="password" class="form-control" id="password" name="password" required="required">
+                    <span>Password</span>
+                    <i></i>
+
+                </div>
+                <div id="password-error-message" class="error-message"></div>
+
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+
+        </form>
+
+    </div>
+</body>
+
+
+
+
+</html>
