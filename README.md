@@ -1,94 +1,93 @@
-# Anomaly Detection using VideoMAE
+# Anomaly Detection in Videos
 
-## 📌 Overview
-This project implements an *anomaly detection system for videos* using the *VideoMAE (Masked Autoencoder) Transformer. It classifies video clips into **normal* or *anomalous* behavior by analyzing video frames. The model is fine-tuned on custom datasets and deployed using the Hugging Face Transformers library.
+## Overview
+This project implements an anomaly detection system for videos. Users can upload videos, and the system analyzes them for anomalies using machine learning techniques. The system includes a frontend for user interaction, a backend for handling requests, and a model for detecting anomalies.
 
-## ⚙ Features
-- Uses *VideoMAE Transformer* for video classification
-- Supports training on a custom dataset of normal and anomalous videos
-- Implements *frame extraction* and *preprocessing* for model compatibility
-- Provides a pipeline for *real-time anomaly detection*
-- Deploys the fine-tuned model on *Hugging Face Hub*
+## Features
+- User authentication (login/signup)
+- Video upload functionality
+- Anomaly detection in videos
+- Storage of flagged videos for further review
+- Web-based interface for user interaction
 
----
+## Project Structure
+```
+TechexcelerateHack/
+├── backend/
+│   ├── db/
+│   ├── app.js (Node.js backend)
+│   ├── app.py (Flask for anomaly detection)
+│
+├── frontend/
+│   ├── assets/
+│   ├── db/
+│   ├── node_modules/
+│   ├── app.js (Frontend logic)
+│   ├── home.html
+│   ├── login.html
+│   ├── main.html
+│   ├── signup.html
+│   ├── history.html
+│   ├── style.css
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── passwordnotmatch.html
+│   ├── usernamecannotfound.html
+│
+├── model/
+│   ├── main (1).ipynb
+│   ├── model (2).ipynb
+│
+└── README.md
+```
 
-## 🛠 Setup Instructions
-### *1️⃣ Install Dependencies*
-Ensure you have Python *3.8+* installed. Then, install the required packages:
-sh
-pip install torch torchvision transformers opencv-python numpy matplotlib scikit-learn huggingface_hub
+## Setup Instructions
+### 1. Install Dependencies
+Ensure you have Node.js and Python installed. Then, install the necessary packages:
+```sh
+# Backend dependencies
+cd backend
+npm install
+pip install flask flask-cors opencv-python transformers
+```
 
+```sh
+# Frontend dependencies
+cd frontend
+npm install
+```
 
-### *2️⃣ Clone the Repository*
-sh
+### 2. Clone the Repository
+```sh
 git clone https://github.com/sathu-02/TechexcelerateHack.git
-cd your-repo
+cd TechexcelerateHack
+```
 
+### 3. Running the Application
+#### Backend
+Start the backend server:
+```sh
+cd backend
+node app.js  # Start Node.js server
+python app.py  # Start Flask server
+```
 
-### *3️⃣ Configure Hugging Face Authentication*
-Create a .env file and add your Hugging Face token:
-ini
-HF_TOKEN=your_huggingface_token
+#### Frontend
+Start the frontend:
+```sh
+cd frontend
+npm start
+```
 
-Or set it in your terminal:
-sh
-export HF_TOKEN="your_huggingface_token"
+### 4. Using the Application
+- Open a browser and navigate to `http://localhost:3000`
+- Sign up or log in
+- Upload a video for anomaly detection
+- View results on the web interface
 
+## Contributing
+Contributions are welcome! Feel free to fork the repository and submit a pull request.
 
----
+## License
+This project is licensed under the MIT License.
 
-## 📂 Dataset Preparation
-1. Place your dataset in the train_70/ directory.
-2. Organize video files into *normal* and *anomaly* subfolders:
-   
-   train_70/
-   ├── normal/
-   │   ├── normal_video1.mp4
-   │   ├── normal_video2.mp4
-   ├── anomaly/
-   │   ├── anomaly_video1.mp4
-   │   ├── anomaly_video2.mp4
-   
-
----
-
-## 🚀 Training the Model
-Run the training script:
-sh
-python train.py
-
-This will:
-- Load and preprocess video frames
-- Train the VideoMAE model for *10 epochs*
-- Save the fine-tuned model to ./fine_tuned_anomaly_detector_10/
-
----
-
-## 📊 Model Evaluation
-To evaluate the model:
-sh
-python evaluate.py
-
-It will print the *accuracy* and other evaluation metrics.
-
----
-
-## 🔍 Anomaly Detection on New Videos
-Run anomaly detection on a test video:
-sh
-python detect.py --video test_video.mp4
-
-If an anomaly is detected, the script will display the frame with a bounding box.
-
----
-
-## 🖥 Deploying the Model to Hugging Face
-After training, you can *push the model to Hugging Face*:
-sh
-python push_to_hub.py
-
-Ensure your Hugging Face token is configured properly.
-
----
-
-🚀 Happy coding!
