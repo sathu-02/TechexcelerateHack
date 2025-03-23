@@ -1,71 +1,106 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Uploader</title>
+    <title>Video Anomaly Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+        img {
+            max-width: 80%;
+            border: 2px solid #333;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-
 <body>
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <title>Home</title>
-        <style>
-            .content-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: calc(100vh - 80px);
-                /* Subtracting nav height */
+    <h1>Video Anomaly Detection</h1>
+    <input type="file" id="videoInput" accept="video/*">
+    <button onclick="uploadVideo()">Upload & Detect</button>
+
+    <div id="result">
+        <h2>Detected Anomaly Frame:</h2>
+        <img id="anomalyImage" src="" alt="Anomaly Frame">
+    </div>
+
+    <script>
+        async function uploadVideo() {
+            const videoInput = document.getElementById("videoInput");
+            const resultDiv = document.getElementById("result");
+            const anomalyImage = document.getElementById("anomalyImage");
+
+            if (!videoInput.files.length) {
+                alert("Please select a video file.");
+                return;
             }
 
-            .container {
-                width: 500px;
-                padding: 30px;
-                background-color: #1f242d;
-                color: #333;
-                border-radius: 10px;
-                /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
-                text-align: center;
-                margin: auto;
-            }
+            const videoFile = videoInput.files[0];
+            const formData = new FormData();
+            formData.append("video", videoFile);
 
-            .container h2 {
-                margin-bottom: 20px;
-                font-size: 24px;
-                color: #444;
-            }
+            try {
+                // Send video to Flask server
+                const response = await fetch("http://localhost:5000/process", {
+                    method: "POST",
+                    body: formData,
+                });
 
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
+                if (response.headers.get("Content-Type").includes("image/png")) {
+                    // If response is an image, display it
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    anomalyImage.src = imageUrl;
+                    resultDiv.style.display = "block";
+                } else {
+                    // If no anomaly detected, show message
+                    const result = await response.json();
+                    alert(result.message);
+                    resultDiv.style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error:", error.message);
+                alert("An error occurred while uploading the video.");
             }
+        }
+    </script>
 
-            input[type="file"] {
-                padding: 10px;
-                border: 2px dashed #007bff;
-                background-color: #f9f9f9;
-                color: #555;
-                font-size: 14px;
-                border-radius: 5px;
-                text-align: center;
-                transition: border-color 0.3s ease;
-            }
+</body>
+</html> -->
 
-            input[type="file"]:hover {
-                border-color: #0056b3;
-            }
 
-            button {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Video Anomaly Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+        img {
+            max-width: 80%;
+            border: 2px solid #333;
+            margin-top: 10px;
+        }
+        button {
+            margin-left: 4rem;
                 padding: 12px 18px;
                 background-color: #007bff;
                 color: white;
@@ -85,52 +120,84 @@
             button:active {
                 background-color: #004080;
             }
-
-            .file-path {
-                margin-top: 15px;
-                font-size: 14px;
+            input[type="file"] {
+                margin-top: 5rem;
+                padding: 10px;
+                border: 2px dashed #007bff;
+                background-color: #f9f9f9;
                 color: #555;
+                font-size: 14px;
+                border-radius: 5px;
+                text-align: center;
+                transition: border-color 0.3s ease;
             }
-        </style>
-    </head>
 
-    <body>
+            input[type="file"]:hover {
+                border-color: #0056b3;
+            }
 
 
-        <!-- {{!-- {{>navbar}} --}} -->
-        <header class="header">
 
-            <a href="#" class="logo">Anomaly Detector</a>
-            <i class='bx bx-menu' id="menu-icon"></i>
+    </style>
+</head>
+<body>
 
-            <nav class="navbar">
+    <header class="header">
 
-                <a href="/#">Log out</a>
-                <a href="/history">History</a>
-
-            </nav>
-        </header>
-
-        <div class="content-wrapper">
-            <div class="container">
-                <form id="uploadForm" enctype="multipart/form-data">
-                    <input type="file" name="video" id="videoUpload" accept="video/*">
-                    <button type="submit">Upload</button>
-                </form>
-                <div id="filePath" class="file-path">No file selected</div>
-            </div>
-        </div>
-
-        <div class="result">
-
-        </div>
-
-        <script src="../jq/jquery.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-    </body>
-
-    </html>
+        <a href="#" class="logo">Anomaly Detector</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
     
-</body>
+        <nav class="navbar">
+          <a href="/" class="active">Log out</a>
+        </nav>
+      </header>
 
+    <h1>Video Anomaly Detection</h1>
+    <input type="file" id="videoInput" accept="video/*">
+    <button onclick="uploadVideo()">Upload & Detect</button>
+
+    <div id="result">
+        <h2>Detected Anomaly Frame:</h2>
+        <img id="anomalyImage" src="" alt="Anomaly Frame">
+    </div>
+
+    <script>
+        async function uploadVideo() {
+            const videoInput = document.getElementById("videoInput");
+            const resultDiv = document.getElementById("result");
+            const anomalyImage = document.getElementById("anomalyImage");
+
+            if (!videoInput.files.length) {
+                alert("Please select a video file.");
+                return;
+            }
+
+            const videoFile = videoInput.files[0];
+            const formData = new FormData();
+            formData.append("video", videoFile);
+
+            try {
+                const response = await fetch("http://localhost:5000/process", {  // Corrected endpoint
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.headers.get("Content-Type").includes("image/png")) {
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    anomalyImage.src = imageUrl;
+                    resultDiv.style.display = "block";
+                } else {
+                    const result = await response.json();
+                    alert(result.message);
+                    resultDiv.style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error:", error.message);
+                alert("An error occurred while uploading the video.");
+            }
+        }
+    </script>
+
+</body>
 </html>
