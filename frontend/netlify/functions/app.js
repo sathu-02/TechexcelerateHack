@@ -10,6 +10,43 @@ const port = process.env.PORT || 3000;
 
 const staticPath = path.join(__dirname, "../public");
 
+const { connectDB, User } = require("../../db/conn");
+const bcrypt = require("bcrypt");
+
+exports.handler = async (event) => {
+    if (event.httpMethod !== "POST") {
+        return { statusCode: 405, body: "Method Not Allowed" };
+    }
+
+    const { username, password } = JSON.parse(event.body);
+
+    try {
+        await connectDB(); // Ensure DB is connected
+
+        const existingUser = await User.findOne({ name: username });
+
+        if (existingUser) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ success: false, message: "User already exists" }),
+            };
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await User.create({ name: username, password: hashedPassword });
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ success: true, message: "Signup successful" }),
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ success: false, error: error.message }),
+        };
+    }
+};
+
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
