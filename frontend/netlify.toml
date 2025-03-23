@@ -1,0 +1,23 @@
+[build]
+publish = "./"
+functions = "netlify/functions"
+
+[[redirects]]
+from = "/signup"
+to = "/signup.html"
+status = 200
+
+[[redirects]]
+from = "/login"
+to = "/login.html"
+status = 200
+
+[[redirects]]
+from = "/main"
+to = "/main.html"
+status = 200
+
+[[redirects]]
+from = "/history"
+to = "/history.html"
+status = 200

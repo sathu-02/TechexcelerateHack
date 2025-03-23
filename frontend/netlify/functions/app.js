@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const collection = require("./db/conn");
+const collection = require("../../db/conn");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 
@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const staticPath = path.join(__dirname, "../public");
+
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
