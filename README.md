@@ -47,7 +47,6 @@ Ensure you have Node.js and Python installed. Then, install the necessary packag
 ```sh
 # Backend dependencies
 cd backend
-npm install
 pip install flask flask-cors opencv-python transformers
 ```
 
@@ -65,10 +64,9 @@ cd TechexcelerateHack
 
 ### 3. Running the Application
 #### Backend
-Start the backend server:
+Start the backend server (for anomaly detection):
 ```sh
-cd backend
-node app.js  # Start Node.js server
+cd backend  
 python app.py  # Start Flask server
 ```
 
