@@ -83,7 +83,18 @@ npm start
 - Upload a video for anomaly detection
 - View results on the web interface
 
+## API Deployment Attempt
+
+Our team attempted to design an API endpoint for deployment and posted the repository link. However, we cannot use this API endpoint because it cannot process heavy requests, as Render does not provide support for CUDA.
+
+If this deployment becomes possible and the API works well, we plan to deploy the frontend on Netlify and use the Render endpoint on the deployed website.
+
+### API Repository
+
+The API repository is available at: [API Repository](https://github.com/alankrutharao/anomaly-detection-api.git)
+
 ## Contributing
+
 Contributions are welcome! Feel free to fork the repository and submit a pull request.
 
 ## License
