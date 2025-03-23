@@ -10,3 +10,13 @@ status = 200
 from = "/login"
 to = "/login.html"
 status = 200
+
+[[redirects]]
+from = "/main"
+to = "/main.html"
+status = 200
+
+[[redirects]]
+from = "/history"
+to = "/history.html"
+status = 200
